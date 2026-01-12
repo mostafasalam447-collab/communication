@@ -6,11 +6,13 @@
     <title>First Aid Question Bank</title>
     <style>
         :root {
-            --primary-blue: #004a77; /* اللون الكحلي في الصور */
-            --teal-bg: #17a2b8; /* لون دائرة رقم السؤال */
+            --primary-blue: #004a77; 
+            --teal-bg: #2fb5cc;
             --bg-light: #f8f9fa;
             --correct-green: #28a745;
             --correct-light: #d4edda;
+            --wrong-red: #dc3545;
+            --wrong-light: #f8d7da;
             --border-color: #dee2e6;
         }
 
@@ -21,7 +23,7 @@
             color: var(--primary-blue);
         }
 
-        /* حاوية الإحصائيات العلوية */
+        /* الإحصائيات العلوية المطابقة للصورة */
         .stats-container {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -48,6 +50,7 @@
             border-radius: 6px;
             padding: 10px;
             text-align: center;
+            background: #fff;
         }
 
         .stat-box .number {
@@ -61,15 +64,14 @@
             color: #6c757d;
         }
 
-        /* تلوين أرقام الإحصائيات */
-        .stat-box:nth-child(2) .number, .stat-box:nth-child(3) .number { color: var(--primary-blue); }
-        .stat-box:nth-child(4) .number { color: #28a745; } /* اللون الأخضر لكلمة صحيحة */
-        .stat-box:nth-child(5) .number { color: var(--primary-blue); }
+        /* تلوين الإحصائيات */
+        #totalQs, #answered, #percentage { color: var(--primary-blue); }
+        #correctCount { color: var(--correct-green); }
 
-        /* حاوية الأسئلة */
+        /* منطقة الأسئلة */
         .quiz-body {
             max-width: 500px;
-            margin: 160px auto 40px;
+            margin: 170px auto 40px;
             padding: 10px;
         }
 
@@ -78,8 +80,8 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .question-header {
@@ -90,24 +92,24 @@
         }
 
         .question-text {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             line-height: 1.5;
-            text-align: left; /* حسب الصور النص إنجليزي لليسار */
+            text-align: left;
             direction: ltr;
             flex: 1;
         }
 
         .question-num-circle {
-            background-color: #2fb5cc;
+            background-color: var(--teal-bg);
             color: white;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             margin-left: 10px;
             flex-shrink: 0;
         }
@@ -124,23 +126,26 @@
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            font-size: 1rem;
             color: #444;
             direction: ltr;
+            background: #fff;
         }
 
-        /* الألوان عند الاختيار */
-        .option-item.correct {
+        .option-item:hover { background: #fcfcfc; border-color: #bbb; }
+
+        /* حالات الإجابة */
+        .correct {
             background-color: var(--correct-light) !important;
             border-color: var(--correct-green) !important;
             color: #155724 !important;
-            font-weight: 500;
+            font-weight: bold;
         }
 
-        .option-item.wrong {
-            background-color: #f8d7da !important;
-            border-color: #dc3545 !important;
+        .wrong {
+            background-color: var(--wrong-light) !important;
+            border-color: var(--wrong-red) !important;
             color: #721c24 !important;
         }
 
@@ -169,23 +174,23 @@
     </div>
 </div>
 
-<div class="quiz-body" id="quizContainer">
-    </div>
+<div class="quiz-body" id="quizContainer"></div>
 
 <script>
-    // مصفوفة الـ 200 سؤال
+    // --- مصفوفة الـ 200 سؤال ---
+    // قم بإضافة أسئلتك هنا بنفس التنسيق
     const questions = [
         {
             q: "While performing CPR on an infant, another rescuer appears on the scene, what do you do next?",
             opts: ["Immediately transport the patient", "Wait until exhausted then switch", "Second rescuer help with CPR", "Have second rescuer begin ventilation ratio 30:2"],
-            ans: 3
+            ans: 3 // الإجابة الرابعة
         },
         {
             q: "Second-degree burn....",
             opts: ["Involves only the top layer of skin.", "Is red and blistered.", "Destroys all layers of skin.", "Is the most serious of burns"],
-            ans: 1
-        }
-        // أضف بقية الأسئلة هنا بنفس التنسيق
+            ans: 1 // الإجابة الثانية
+        },
+        // أضف بقية الأسئلة هنا...
     ];
 
     let score = 0;
