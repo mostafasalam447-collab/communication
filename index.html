@@ -3,163 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Questions - Full Version</title>
+    <title>First Aid Question Bank</title>
     <style>
         :root {
-            --bg: #f4f7f6;
-            --blue: #1a3a5f;
-            --green: #28a745;
-            --red: #dc3545;
-            --white: #ffffff;
+            --primary-blue: #004a77; /* اللون الكحلي في الصور */
+            --teal-bg: #17a2b8; /* لون دائرة رقم السؤال */
+            --bg-light: #f8f9fa;
+            --correct-green: #28a745;
+            --correct-light: #d4edda;
+            --border-color: #dee2e6;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f1f3f5;
             margin: 0; padding: 0;
+            color: var(--primary-blue);
         }
 
-        /* الإحصائيات العلوية - تصميم المربعات */
-        .stats-grid {
+        /* حاوية الإحصائيات العلوية */
+        .stats-container {
             position: fixed;
             top: 0; left: 0; right: 0;
-            background: var(--white);
+            background: white;
+            padding: 10px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
             gap: 8px;
-            padding: 10px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             z-index: 1000;
         }
 
-        .stat-item {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 8px;
+        .header-title {
+            grid-column: span 2;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary-blue);
+        }
+
+        .stat-box {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
             text-align: center;
         }
 
-        .stat-item .val {
+        .stat-box .number {
             display: block;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            color: var(--blue);
         }
 
-        .stat-item .lbl {
+        .stat-box .label {
             font-size: 0.75rem;
-            color: #888;
+            color: #6c757d;
         }
 
-        .stat-item.success .val { color: var(--green); }
+        /* تلوين أرقام الإحصائيات */
+        .stat-box:nth-child(2) .number, .stat-box:nth-child(3) .number { color: var(--primary-blue); }
+        .stat-box:nth-child(4) .number { color: #28a745; } /* اللون الأخضر لكلمة صحيحة */
+        .stat-box:nth-child(5) .number { color: var(--primary-blue); }
 
         /* حاوية الأسئلة */
-        .quiz-container {
-            max-width: 650px;
-            margin: 170px auto 50px;
-            padding: 0 15px;
+        .quiz-body {
+            max-width: 500px;
+            margin: 160px auto 40px;
+            padding: 10px;
         }
 
-        .card {
-            background: var(--white);
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .q-header {
+        .question-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
 
-        .q-text {
-            font-size: 1.05rem;
-            color: var(--blue);
-            font-weight: 600;
+        .question-text {
+            font-size: 1rem;
+            font-weight: bold;
             line-height: 1.5;
-            direction: ltr; text-align: left;
+            text-align: left; /* حسب الصور النص إنجليزي لليسار */
+            direction: ltr;
+            flex: 1;
         }
 
-        .q-num {
-            background: #17a2b8;
+        .question-num-circle {
+            background-color: #2fb5cc;
             color: white;
-            min-width: 28px; height: 28px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            flex-shrink: 0;
         }
 
-        .opt-list { list-style: none; padding: 0; margin: 0; }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-        .opt-btn {
-            border: 1px solid #eee;
+        .option-item {
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 8px;
-            cursor: pointer;
+            padding: 15px;
             text-align: center;
-            transition: 0.2s;
+            cursor: pointer;
+            transition: background 0.2s;
             font-size: 0.95rem;
+            color: #444;
             direction: ltr;
         }
 
-        .opt-btn:hover { background: #f9f9f9; }
+        /* الألوان عند الاختيار */
+        .option-item.correct {
+            background-color: var(--correct-light) !important;
+            border-color: var(--correct-green) !important;
+            color: #155724 !important;
+            font-weight: 500;
+        }
 
-        /* حالات الإجابة */
-        .correct { background-color: #d4edda !important; border-color: var(--green) !important; color: #155724; font-weight: bold; }
-        .wrong { background-color: #f8d7da !important; border-color: var(--red) !important; color: #721c24; }
-        .lock { pointer-events: none; }
+        .option-item.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24 !important;
+        }
+
+        .locked { pointer-events: none; }
     </style>
 </head>
 <body>
 
-<div class="stats-grid">
-    <div class="stat-item"><span class="val" id="qTotal">0</span><span class="lbl">إجمالي الأسئلة</span></div>
-    <div class="stat-item"><span class="val" id="qDone">0</span><span class="lbl">تمت الإجابة</span></div>
-    <div class="stat-item success"><span class="val" id="qRight">0</span><span class="lbl">صحيحة</span></div>
-    <div class="stat-item"><span class="val" id="qPercent">0%</span><span class="lbl">نسبة النجاح</span></div>
+<div class="stats-container">
+    <div class="header-title">First Aid Question Bank</div>
+    <div class="stat-box">
+        <span class="number" id="totalQs">0</span>
+        <span class="label">إجمالي الأسئلة</span>
+    </div>
+    <div class="stat-box">
+        <span class="number" id="answered">0</span>
+        <span class="label">تمت الإجابة</span>
+    </div>
+    <div class="stat-box">
+        <span class="number" id="correctCount">0</span>
+        <span class="label">صحيحة</span>
+    </div>
+    <div class="stat-box">
+        <span class="number" id="percentage">0%</span>
+        <span class="label">نسبة النجاح</span>
+    </div>
 </div>
 
-<div class="quiz-container" id="mainQuiz"></div>
+<div class="quiz-body" id="quizContainer">
+    </div>
 
 <script>
-    // --- ضع الـ 200 سؤال هنا ---
+    // مصفوفة الـ 200 سؤال
     const questions = [
         {
-            en: "As regards communication, barriers of messages include which of the following?",
-            opts: ["Easy messages", "Relevant messages", "Unclear messages", "Complete messages"],
-            ans: 2 // الإجابة الصحيحة هي الثالثة (يبدأ العد من 0)
+            q: "While performing CPR on an infant, another rescuer appears on the scene, what do you do next?",
+            opts: ["Immediately transport the patient", "Wait until exhausted then switch", "Second rescuer help with CPR", "Have second rescuer begin ventilation ratio 30:2"],
+            ans: 3
         },
         {
-            en: "Second-degree burn....",
-            opts: ["Involves only top layer of skin", "Is red and blistered", "Destroys all layers of skin", "Is the most serious"],
+            q: "Second-degree burn....",
+            opts: ["Involves only the top layer of skin.", "Is red and blistered.", "Destroys all layers of skin.", "Is the most serious of burns"],
             ans: 1
-        },
-        // كرر هذا القالب لكل الأسئلة (يمكنك نسخهم ولصقهم هنا)
+        }
+        // أضف بقية الأسئلة هنا بنفس التنسيق
     ];
 
-    let correctCount = 0;
-    let answeredCount = 0;
+    let score = 0;
+    let totalAnswered = 0;
 
-    function buildQuiz() {
-        const container = document.getElementById('mainQuiz');
-        document.getElementById('qTotal').innerText = questions.length;
+    function renderQuiz() {
+        const container = document.getElementById('quizContainer');
+        document.getElementById('totalQs').innerText = questions.length;
 
-        questions.forEach((q, i) => {
+        questions.forEach((item, index) => {
             const card = document.createElement('div');
-            card.className = 'card';
+            card.className = 'question-card';
             card.innerHTML = `
-                <div class="q-header">
-                    <div class="q-text">${q.en}</div>
-                    <div class="q-num">${i + 1}</div>
+                <div class="question-header">
+                    <div class="question-text">${item.q}</div>
+                    <div class="question-num-circle">${index + 1}</div>
                 </div>
-                <div class="opt-list" id="group-${i}">
-                    ${q.opts.map((o, idx) => `
-                        <div class="opt-btn" onclick="check(${i}, ${idx}, ${q.ans})">${o}</div>
+                <div class="options-container" id="group-${index}">
+                    ${item.opts.map((opt, i) => `
+                        <div class="option-item" onclick="handleChoice(${index}, ${i}, ${item.ans})">${opt}</div>
                     `).join('')}
                 </div>
             `;
@@ -167,32 +213,33 @@
         });
     }
 
-    window.check = (qIdx, choice, correct) => {
-        const grp = document.getElementById(`group-${qIdx}`);
-        if(grp.classList.contains('lock')) return;
+    window.handleChoice = (qIdx, selected, correct) => {
+        const group = document.getElementById(`group-${qIdx}`);
+        if(group.classList.contains('locked')) return;
 
-        answeredCount++;
-        const btns = grp.getElementsByClassName('opt-btn');
+        totalAnswered++;
+        const options = group.getElementsByClassName('option-item');
 
-        if(choice === correct) {
-            correctCount++;
-            btns[choice].classList.add('correct');
+        if(selected === correct) {
+            score++;
+            options[selected].classList.add('correct');
         } else {
-            btns[choice].classList.add('wrong');
-            btns[correct].classList.add('correct');
+            options[selected].classList.add('wrong');
+            options[correct].classList.add('correct');
         }
 
-        grp.classList.add('lock');
-        updateStats();
+        group.classList.add('locked');
+        updateHeader();
     }
 
-    function updateStats() {
-        document.getElementById('qDone').innerText = answeredCount;
-        document.getElementById('qRight').innerText = correctCount;
-        document.getElementById('qPercent').innerText = Math.round((correctCount/answeredCount)*100) + "%";
+    function updateHeader() {
+        document.getElementById('answered').innerText = totalAnswered;
+        document.getElementById('correctCount').innerText = score;
+        const percent = Math.round((score / totalAnswered) * 100);
+        document.getElementById('percentage').innerText = percent + "%";
     }
 
-    buildQuiz();
+    renderQuiz();
 </script>
 
 </body>
