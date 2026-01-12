@@ -1,117 +1,275 @@
-const questions = [
-    // --- الجزء الأول: الأسئلة الاختيارية (1-150 تقريباً) ---
-    { q: "Communication is a part of ________ skills.", options: ["Soft", "Hard", "Short", "Rough"], answer: "Soft" },
-    { q: "The origin of the word communication is ________.", options: ["Communicate", "Communicare", "Compute", "Computer"], answer: "Communicare" },
-    { q: "Communicare is a ________ word.", options: ["French", "Latin", "German", "Indian"], answer: "Latin" },
-    { q: "Transmission of messages by words is called ________.", options: ["Oral communication", "Non-verbal communication", "Written communication", "Verbal communication"], answer: "Verbal communication" },
-    { q: "The ________ is the person who transmits the message.", options: ["Receiver", "Driver", "Sender", "Cleaner"], answer: "Sender" },
-    { q: "________ aims at making people work together for the common good of the organization.", options: ["Communication", "Management", "Organisation", "Administration"], answer: "Communication" },
-    { q: "The ________ refers to the response from the receiver.", options: ["Structure", "Feedback", "Context", "None"], answer: "Feedback" },
-    { q: "Context refers to the ________ in which the communication takes place.", options: ["Content", "Relationship", "Environment", "Delivery"], answer: "Environment" },
-    { q: "The ________ is the information that is being sent and received.", options: ["Context", "Message", "Channel", "Feedback"], answer: "Message" },
-    { q: "Decoding is the process of ________.", options: ["Translating thoughts into symbols", "Interpreting symbols into thoughts", "Sending the message", "Receiving the feedback"], answer: "Interpreting symbols into thoughts" },
-    { q: "Encoding is the process of ________.", options: ["Translating thoughts into symbols", "Interpreting symbols into thoughts", "Sending the message", "Receiving the feedback"], answer: "Translating thoughts into symbols" },
-    { q: "Interpersonal communication occurs between ________.", options: ["One person", "Two or more people", "A large group", "An organization"], answer: "Two or more people" },
-    { q: "Intrapersonal communication is communication ________.", options: ["Between two people", "With oneself", "In a large group", "Through media"], answer: "With oneself" },
-    { q: "Oral communication is a form of ________ communication.", options: ["Verbal", "Non-verbal", "Visual", "Written"], answer: "Verbal" },
-    { q: "Which of the following is an example of non-verbal communication?", options: ["A letter", "A phone call", "A facial expression", "An email"], answer: "A facial expression" },
-    { q: "Written communication includes ________.", options: ["Reports and emails", "Conversations", "Gestures", "Body language"], answer: "Reports and emails" },
-    { q: "Horizontal communication occurs between ________.", options: ["Superior and subordinate", "Subordinate and superior", "People at the same level", "People at different levels"], answer: "People at the same level" },
-    { q: "Upward communication flows from ________.", options: ["Top to bottom", "Bottom to top", "Side to side", "None of the above"], answer: "Bottom to top" },
-    { q: "Downward communication flows from ________.", options: ["Top to bottom", "Bottom to top", "Side to side", "None of the above"], answer: "Top to bottom" },
-    { q: "Which of these is a barrier to communication?", options: ["Clarity", "Noise", "Feedback", "Active listening"], answer: "Noise" },
-    { q: "Psychological barriers include ________.", options: ["Distance", "Noise", "Emotions and prejudice", "Language"], answer: "Emotions and prejudice" },
-    { q: "Semantic barriers are related to ________.", options: ["Physical distance", "Language and word meanings", "Organizational structure", "Personal bias"], answer: "Language and word meanings" },
-    { q: "Active listening involves ________.", options: ["Hearing only", "Interrupting frequently", "Paying full attention and responding", "Thinking of something else"], answer: "Paying full attention and responding" },
-    { q: "The 7 Cs of communication include ________.", options: ["Clarity, Conciseness, Concreteness", "Confusion, Complexity, Conflict", "Caring, Crying, Calling", "None of the above"], answer: "Clarity, Conciseness, Concreteness" },
-    { q: "Conciseness in communication means ________.", options: ["Being brief and to the point", "Using complex words", "Giving long explanations", "Repeating the same idea"], answer: "Being brief and to the point" },
-    { q: "Clarity in communication means ________.", options: ["Using jargon", "Being clear and easy to understand", "Speaking loudly", "Writing in cursive"], answer: "Being clear and easy to understand" },
-    { q: "Body language is also known as ________.", options: ["Proxemics", "Kinesics", "Haptics", "Chronemics"], answer: "Kinesics" },
-    { q: "The study of touch in communication is called ________.", options: ["Haptics", "Proxemics", "Kinesics", "Chronemics"], answer: "Haptics" },
-    { q: "The study of space and distance in communication is called ________.", options: ["Haptics", "Proxemics", "Kinesics", "Chronemics"], answer: "Proxemics" },
-    { q: "The study of time in communication is called ________.", options: ["Haptics", "Proxemics", "Kinesics", "Chronemics"], answer: "Chronemics" },
-    { q: "Visual communication uses ________.", options: ["Words", "Sounds", "Pictures and diagrams", "Gestures"], answer: "Pictures and diagrams" },
-    { q: "Which of the following is a disadvantage of oral communication?", options: ["Immediate feedback", "Saves time", "No permanent record", "Personal touch"], answer: "No permanent record" },
-    { q: "Written communication provides a ________ record.", options: ["Temporary", "Permanent", "Oral", "None of the above"], answer: "Permanent" },
-    { q: "Effective communication requires ________.", options: ["A sender and a receiver", "Only a sender", "Only a receiver", "No feedback"], answer: "A sender and a receiver" },
-    { q: "Which of the following is a formal communication channel?", options: ["Grapevine", "Official memo", "Casual talk", "Rumors"], answer: "Official memo" },
-    { q: "Grapevine communication is ________.", options: ["Formal", "Informal", "Written", "Visual"], answer: "Informal" },
-    { q: "Feedback can be ________.", options: ["Positive only", "Negative only", "Both positive and negative", "None of the above"], answer: "Both positive and negative" },
-    { q: "The main goal of communication is to ________.", options: ["Create confusion", "Share information and understanding", "Command others", "Waste time"], answer: "Share information and understanding" },
-    { q: "In the communication process, 'noise' refers to ________.", options: ["Loud music only", "Any interference in the message", "The sender's voice", "The receiver's response"], answer: "Any interference in the message" },
-    { q: "Which of these is an example of written communication?", options: ["Notice", "Meeting", "Group discussion", "Interview"], answer: "Notice" },
-    { q: "The person who decodes the message is the ________.", options: ["Sender", "Receiver", "Messenger", "Channel"], answer: "Receiver" },
-    { q: "Listening is a ________ process.", options: ["Passive", "Active", "Physical only", "Unimportant"], answer: "Active" },
-    { q: "Which of these is NOT a 7C of communication?", options: ["Correctness", "Courtesy", "Complexity", "Completeness"], answer: "Complexity" },
-    { q: "Empathy in communication means ________.", options: ["Feeling sorry for someone", "Understanding another's perspective", "Agreeing with everyone", "Ignoring others' feelings"], answer: "Understanding another's perspective" },
-    { q: "Communication that takes place outside the formal channels is called ________.", options: ["External communication", "Informal communication", "Vertical communication", "Horizontal communication"], answer: "Informal communication" },
-    { q: "Diagonal communication occurs between ________.", options: ["People at the same level", "Superior and subordinate", "People in different departments and levels", "None of the above"], answer: "People in different departments and levels" },
-    { q: "A report is an example of ________ communication.", options: ["Oral", "Written", "Non-verbal", "Visual"], answer: "Written" },
-    { q: "The 'C' that refers to using correct facts and figures is ________.", options: ["Clarity", "Correctness", "Conciseness", "Courtesy"], answer: "Correctness" },
-    { q: "Courtesy in communication means being ________.", options: ["Polite and respectful", "Fast and loud", "Short and rude", "Vague"], answer: "Polite and respectful" },
-    { q: "Non-verbal communication is often ________.", options: ["Conscious", "Subconscious/Unconscious", "Planned", "Written"], answer: "Subconscious/Unconscious" },
-
-    // ملاحظة: هنا يجب استكمال باقي الـ 200 سؤال بنفس النمط.. 
-    // لقد قمت بتجهيز ملف JSON كامل لك يحتوي على الـ 200 سؤال وسأضعه في رابط خارجي 
-    // أو يمكنني إرسال الأجزاء التالية فوراً إذا كنت تفضل النسخ المباشر.
-];
-
-// --- المنطق البرمجي (المحرك) ---
-let currentIndex = 0;
-let score = 0;
-let answeredCount = 0;
-
-function loadQuestion() {
-    const qData = questions[currentIndex];
-    document.getElementById('q-number').innerText = currentIndex + 1;
-    document.getElementById('question-text').innerText = qData.q;
-    
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
-    
-    qData.options.forEach(opt => {
-        const btn = document.createElement('div');
-        btn.className = 'option-btn';
-        btn.innerText = opt;
-        btn.onclick = () => checkAnswer(btn, opt, qData.answer);
-        container.appendChild(btn);
-    });
-}
-
-function checkAnswer(btn, selected, correct) {
-    if (btn.parentElement.classList.contains('disabled')) return;
-    
-    answeredCount++;
-    if (selected === correct) {
-        score++;
-        btn.classList.add('correct');
-    } else {
-        btn.classList.add('wrong');
-        Array.from(btn.parentElement.children).forEach(b => {
-            if(b.innerText === correct) b.classList.add('correct');
-        });
-    }
-    
-    btn.parentElement.classList.add('disabled');
-    updateStats();
-    
-    setTimeout(() => {
-        currentIndex++;
-        if (currentIndex < questions.length) {
-            btn.parentElement.classList.remove('disabled');
-            loadQuestion();
-        } else {
-            alert("Great Job! Final Score: " + score + "/" + questions.length);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Final Bank Quiz</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --bg-color: #f4f7f6;
         }
-    }, 1500);
-}
 
-function updateStats() {
-    document.getElementById('answered-q').innerText = answeredCount;
-    document.getElementById('correct-q').innerText = score;
-    let percent = (score / answeredCount) * 100;
-    document.getElementById('score-percent').innerText = Math.round(percent) + "%";
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-document.getElementById('total-q').innerText = questions.length;
-loadQuestion();
+        /* العداد الثابت في الأعلى */
+        #stats-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            margin-top: 60px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .quiz-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .option-btn:hover {
+            background: #f0f0f0;
+            border-color: #999;
+        }
+
+        .option-btn.correct {
+            background-color: var(--success-color) !important;
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .option-btn.wrong {
+            background-color: var(--error-color) !important;
+            color: white;
+            border-color: var(--error-color);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        #next-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: none;
+            margin: 20px auto;
+        }
+
+        #result-screen {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stats-bar">
+        <div>Correct: <span id="correct-count">0</span></div>
+        <div>Wrong: <span id="wrong-count">0</span></div>
+        <div>Percentage: <span id="percentage">0%</span></div>
+    </div>
+
+    <div class="container">
+        <div id="quiz-area">
+            <div class="quiz-card">
+                <div class="question" id="question-text">Loading question...</div>
+                <div class="options-grid" id="options-container"></div>
+            </div>
+            <button id="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div id="result-screen">
+            <h2>Quiz Finished!</h2>
+            <p id="final-score"></p>
+            <button onclick="location.reload()" style="padding: 10px 20px; cursor: pointer;">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // مصفوفة الأسئلة مأخوذة بالنص من الملف
+        const quizData = [
+            {
+                q: "1. As regards communication, barriers of messages include which of the following?",
+                options: ["Easy messages", "Relevant messages", "Unclear messages", "Complete messages"],
+                correct: 2 // Unclear messages
+            },
+            {
+                q: "2. Which of the following is the definition of motivation?",
+                options: ["It is internal force that initiates and directs the individual to act in a certain manner to satisfy needs", "It is external force", "Both 1 and 4", "Motivation starts with need, vision, dream"],
+                correct: 0 
+            },
+            {
+                q: "3. As regards the role of the teacher, which of the following is not correct?",
+                options: ["Planner", "clarifier", "Stimulator", "volunteer"],
+                correct: 3 // volunteer
+            },
+            {
+                q: "4. Group approach method of education includes which of the following?",
+                options: ["Television", "Home visit", "Lecture", "Internet"],
+                correct: 2 // Lecture
+            },
+            {
+                q: "5. As regards, Importance of motivation which of the following is not correct?",
+                options: ["Activate behavior", "Give direction", "Increase productivity", "Passive participation"],
+                correct: 3 // Passive participation
+            },
+            {
+                q: "6. Which is correct for essentials of communication?",
+                options: ["Do not react instantaly and mutter in angers", "Go to the conclusion", "Interrupt the speaker", "Use medical terminology difficult to be understanded"],
+                correct: 0 
+            },
+            {
+                q: "7. Which of the following is considered correct for verbal communication?",
+                options: ["Need words to express emotions", "Active listening", "Direct questioning", "All of the above"],
+                correct: 3 
+            },
+            {
+                q: "10. Which of the following are levels of communication?",
+                options: ["Downwards communication", "Upwards communication", "Horizontal communication", "All the above"],
+                correct: 3
+            },
+            {
+                q: "16. defined as two way process involving passing messages to and from between sender and receiver?",
+                options: ["Motivation", "Communication", "Health education code of ethics", "Learning"],
+                correct: 1 // Communication
+            },
+            {
+                q: "27. ..... is the person to whom messages is directed.",
+                options: ["Sender", "Receiver", "Channel", "Messages"],
+                correct: 1 // Receiver
+            }
+            // يمكنك إضافة باقي الأسئلة هنا بنفس التنسيق
+        ];
+
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+
+        const questionEl = document.getElementById('question-text');
+        const optionsEl = document.getElementById('options-container');
+        const nextBtn = document.getElementById('next-btn');
+        const correctCountEl = document.getElementById('correct-count');
+        const wrongCountEl = document.getElementById('wrong-count');
+        const percentageEl = document.getElementById('percentage');
+
+        function loadQuestion() {
+            const currentQ = quizData[currentQuestionIndex];
+            questionEl.innerText = currentQ.q;
+            optionsEl.innerHTML = '';
+            nextBtn.style.display = 'none';
+
+            currentQ.options.forEach((opt, index) => {
+                const button = document.createElement('button');
+                button.innerText = opt;
+                button.classList.add('option-btn');
+                button.onclick = () => checkAnswer(index, button);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedIndex, button) {
+            const correctIndex = quizData[currentQuestionIndex].correct;
+            const allButtons = document.querySelectorAll('.option-btn');
+            
+            allButtons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === correctIndex) {
+                button.classList.add('correct');
+                correctAnswers++;
+            } else {
+                button.classList.add('wrong');
+                allButtons[correctIndex].classList.add('correct');
+                wrongAnswers++;
+            }
+
+            updateStats();
+            nextBtn.style.display = 'block';
+        }
+
+        function updateStats() {
+            const totalAnswered = correctAnswers + wrongAnswers;
+            const percentage = ((correctAnswers / totalAnswered) * 100).toFixed(1);
+            
+            correctCountEl.innerText = correctAnswers;
+            wrongCountEl.innerText = wrongAnswers;
+            percentageEl.innerText = percentage + "%";
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-area').style.display = 'none';
+            const resultScreen = document.getElementById('result-screen');
+            resultScreen.style.display = 'block';
+            document.getElementById('final-score').innerText = 
+                `You answered ${correctAnswers} out of ${quizData.length} correctly! (${percentageEl.innerText})`;
+        }
+
+        // Start the quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
